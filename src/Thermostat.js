@@ -49,6 +49,9 @@ Thermostat.prototype = {
   },
 
   switchOnPSM: function() {
+    if (this._temperature > this._PSM_ON_MAX_TEMP) {
+      this._temperature = this._PSM_ON_MAX_TEMP;
+    }
     this._powerSavingMode = true;
   },
 
@@ -56,13 +59,13 @@ Thermostat.prototype = {
     this._temperature = this._DEFAULT_TEMP;
   },
 
-  display: function() {
+  energyUsage: function() {
     if (this._temperature < this._MEDIUM_ENERGY_USAGE_LIMIT) {
-      return 'green';
+      return 'low-usage';
     }
     if (this._temperature < this._PSM_ON_MAX_TEMP) {
-      return 'yellow';
+      return 'medium-usage';
     }
-    return 'red';
+    return 'high-usage';
   }
 };
