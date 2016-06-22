@@ -67,5 +67,12 @@ Thermostat.prototype = {
       return 'medium-usage';
     }
     return 'high-usage';
+  },
+
+  onOff: function() {
+    if (this._powerSavingMode === true) {
+      return 'ON';
+    }
+      return 'OFF';
   }
 };

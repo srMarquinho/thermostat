@@ -9,3 +9,11 @@
 .high-usage {
   color: red;
 }
+
+.ON {
+  color: green;
+}
+
+.OFF {
+  color: red;
+}
