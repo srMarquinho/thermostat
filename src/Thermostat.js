@@ -1,49 +1,57 @@
+'use strict';
+
 function Thermostat() {
+  this._powerSavingMode = true;
+  this._DEFAULT_TEMP = 20;
+  this._temperature = this._DEFAULT_TEMP;
   this._MINIMUM_TEMP = 10;
-  this._MAXIMUM_TEMP_POWER_MODE_ON = 25;
-  this._MAXIMUM_TEMP_POWER_MODE_OFF = 32;
-  this._STARTING_TEMP = 20;
-  this._MEDIUM_ENERGY_USAGE_LIMIT = 18;
-  this._maximumTemp = this._MAXIMUM_TEMP_POWER_MODE_ON;
-  this._temp = this._STARTING_TEMP;
-}
+  this._PSM_ON_MAX_TEMP = 25;
+  this._PSM_OFF_MAX_TEMP = 32;
+};
 
 Thermostat.prototype = {
-  currentTemp: function() {
-    return this._temp;
+  getCurrentTemp: function() {
+    return this._temperature;
+  },
+
+  upButton: function() {
+    if(this.isMaximumTemp()) {
+      return;
+    };
+    this._temperature += 1;
+  },
+
+  downButton: function() {
+    if (this.isMinimumTemp()) {
+      return;
+    }
+    this._temperature -= 1;
+  },
+
+  isMinimumTemp: function() {
+    return this._temperature === this._MINIMUM_TEMP;
+  },
+
+  isMaximumTemp: function() {
+    if (this._powerSavingMode === false) {
+      return this._temperature === this._PSM_OFF_MAX_TEMP;
+    }
+    return this._temperature === this._PSM_ON_MAX_TEMP;
+  },
+
+  isPowerSavingModeOn: function() {
+    return this._powerSavingMode;
+  },
+
+  switchOffPSM: function() {
+    this._powerSavingMode = false;
+  },
+
+  switchOnPSM: function() {
+    this._powerSavingMode = true;
+  },
+
+  resetTemp: function() {
+    this._temperature = this._DEFAULT_TEMP;
   }
-};
-
-Thermostat.prototype.increaseTemp = function () {
-  if(this._temp < this._maximumTemp) {
-    this._temp += 1;
-  }
-};
-
-Thermostat.prototype.decreaseTemp = function () {
-  if(this._temp > this._MINIMUM_TEMP) {
-    this._temp -= 1;
-  }
-};
-
-Thermostat.prototype.powerSavingModeOn = function () {
-  this._maximumTemp = this._MAXIMUM_TEMP_POWER_MODE_ON;
-};
-
-Thermostat.prototype.powerSavingModeOff = function () {
-  this._maximumTemp = this._MAXIMUM_TEMP_POWER_MODE_OFF;
-};
-
-Thermostat.prototype.reset = function () {
-  this._temp = this._STARTING_TEMP;
-};
-
-Thermostat.prototype.displayColour = function () {
-  if(this._temp < this._MEDIUM_ENERGY_USAGE_LIMIT) {
-    return 'green';
-  }
-  if (this._temp < this._MAXIMUM_TEMP_POWER_MODE_ON) {
-    return 'yellow';
-  }
-  return 'red';
 };
