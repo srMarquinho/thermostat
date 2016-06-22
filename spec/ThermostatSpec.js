@@ -69,4 +69,20 @@ describe('Thermostat', function() {
       expect(thermostat.getCurrentTemp()).toEqual(32);
     });
   });
+
+  describe('displays red, yellow or green depending on temperature', function() {
+    it('displays green if temperature is less than 18deg', function() {
+      thermostat._temperature = 17;
+      expect(thermostat.display()).toEqual('green');
+    });
+
+    it('displays yellow if temperature is less than 25deg', function() {
+      expect(thermostat.display()).toEqual('yellow');
+    });
+
+    it('displays red if temperature is greater or equal to 25deg', function() {
+      thermostat._temperature = 25;
+      expect(thermostat.display()).toEqual('red');
+    });
+  });
 });

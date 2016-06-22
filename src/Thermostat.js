@@ -7,6 +7,7 @@ function Thermostat() {
   this._MINIMUM_TEMP = 10;
   this._PSM_ON_MAX_TEMP = 25;
   this._PSM_OFF_MAX_TEMP = 32;
+  this._MEDIUM_ENERGY_USAGE_LIMIT = 18;
 };
 
 Thermostat.prototype = {
@@ -53,5 +54,15 @@ Thermostat.prototype = {
 
   resetTemp: function() {
     this._temperature = this._DEFAULT_TEMP;
+  },
+
+  display: function() {
+    if (this._temperature < this._MEDIUM_ENERGY_USAGE_LIMIT) {
+      return 'green';
+    }
+    if (this._temperature < this._PSM_ON_MAX_TEMP) {
+      return 'yellow';
+    }
+    return 'red';
   }
 };
