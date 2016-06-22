@@ -1,2 +1,2 @@
 # thermostat
-practicing js
+practising js
