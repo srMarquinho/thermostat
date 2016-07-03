@@ -1,2 +1,2 @@
-# thermostat
-practising js
+# Thermostat Challenge
+Practising JavaScript and jQuery
